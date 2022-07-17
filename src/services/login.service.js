@@ -5,11 +5,11 @@ const { checkPassword } = require('./password.service');
 const { User } = require('../database/models');
 
 const validateBody = (body) => {
-const { error, value } = bodySchema.validate(body);
+  const { error, value } = bodySchema.validate(body);
 
-if (error) throw error;
+  if (error) throw error;
 
-return value;
+  return value;
 };
 
 const validateUser = async ({ email, password }) => {
@@ -17,7 +17,7 @@ const validateUser = async ({ email, password }) => {
 
   if (!user) {
     const error = new Error('Invalid fields');
-    error.name = 'UnauthorizedError';
+    error.name = 'ValidationError';
     throw error;
   }
 
@@ -30,7 +30,23 @@ const validateUser = async ({ email, password }) => {
   return token;
 };
 
+const validateToken = async (token) => {
+  if (!token) {
+    const e = new Error('Token not found');
+    e.name = 'UnauthorizedError';
+    throw e;
+  }
+  const { email } = jwtService.validateToken(token);
+  const { dataValues } = await User.findOne({
+    where: { email },
+    attributes: { exclude: ['password'] },
+  });
+
+  return dataValues;
+};
+
 module.exports = {
   validateBody,
   validateUser,
+  validateToken,
 };

@@ -2,7 +2,7 @@ const { CLIENT_ERROR, SERVER_ERROR } = require('../helpers/httpStatusCodes');
 
 const errors = {
   ValidationError: CLIENT_ERROR.badRequest,
-  UnauthorizedError: CLIENT_ERROR.badRequest,
+  UnauthorizedError: CLIENT_ERROR.unauthorized,
   ConflictError: CLIENT_ERROR.conflict,
 };
 
