@@ -3,6 +3,7 @@ const { CLIENT_ERROR, SERVER_ERROR } = require('../helpers/httpStatusCodes');
 const errors = {
   ValidationError: CLIENT_ERROR.badRequest,
   UnauthorizedError: CLIENT_ERROR.badRequest,
+  ConflictError: CLIENT_ERROR.conflict,
 };
 
 module.exports = async ({ name, message }, _req, res, _next) => {

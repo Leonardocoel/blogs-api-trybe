@@ -1,5 +1,6 @@
 const jwtService = require('./jwt.service');
 const { bodySchema } = require('../schema/loginSchema');
+const { checkPassword } = require('./password.service');
 
 const { User } = require('../database/models');
 
@@ -14,11 +15,13 @@ return value;
 const validateUser = async ({ email, password }) => {
   const user = await User.findOne({ where: { email } });
 
-  if (!user || user.password !== password) {
+  if (!user) {
     const error = new Error('Invalid fields');
     error.name = 'UnauthorizedError';
     throw error;
   }
+
+  await checkPassword(password, user.password);
 
   const { password: _, ...userWithoutPassword } = user;
 
