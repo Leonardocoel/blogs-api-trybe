@@ -11,15 +11,20 @@ const Category = (sequelize, DataTypes) => {
     {
       id: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+        autoIncrement: true,
         primaryKey: true,
       },
-      name: DataTypes.STRING,
-      
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       timestamps: false,
     }
   );
+
   return Category;
 };
 
