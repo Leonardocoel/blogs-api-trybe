@@ -9,9 +9,11 @@ module.exports = {
       },
       title: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       content: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -25,9 +27,11 @@ module.exports = {
       },
       published: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
       updated: {
         type: Sequelize.DATE,
+        allowNull: false,
       },
     });
   },
