@@ -3,7 +3,7 @@ require('express-async-errors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const router = require('./routes/index.routes');
-const loginController = require('./controllers/login.controller');
+// const loginController = require('./controllers/login.controller');
 const errorMiddleware = require('./middlewares/error.middleware');
 
 const app = express();
