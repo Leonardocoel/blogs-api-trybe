@@ -5,6 +5,7 @@ const errors = {
   UnauthorizedError: CLIENT_ERROR.unauthorized,
   NotFoundError: CLIENT_ERROR.notFound,
   ConflictError: CLIENT_ERROR.conflict,
+  InternalServerError: CLIENT_ERROR.InternalServerError,
 };
 
 module.exports = async ({ name, message }, _req, res, _next) => {

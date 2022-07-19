@@ -13,7 +13,7 @@ const validateBody = (body) => {
 };
 
 const validateUser = async ({ email, password }) => {
-  const user = await User.findOne({ where: { email } });
+  const user = await User.findOne({ where: { email }, raw: true });
 
   if (!user) {
     const error = new Error('Invalid fields');
@@ -25,7 +25,7 @@ const validateUser = async ({ email, password }) => {
 
   const { password: _, ...userWithoutPassword } = user;
 
-  const token = jwtService.createToken(userWithoutPassword.dataValues);
+  const token = jwtService.createToken(userWithoutPassword);
 
   return token;
 };

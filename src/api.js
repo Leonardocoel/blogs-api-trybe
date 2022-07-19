@@ -16,6 +16,7 @@ app.use('/login', router.loginRouter);
 app.use('/user', router.userRouter);
 // app.use(validateToken);
 app.use('/categories', validateToken, router.categoriesRouter);
+app.use('/post', validateToken, router.blogPostsController);
 app.use(errorMiddleware);
 
 module.exports = app;
