@@ -1,11 +1,6 @@
 const Sequelize = require('sequelize');
-const {
-  BlogPost,
-  PostCategory,
-  Category,
-  User,
-} = require('../database/models');
-const { bodySchema } = require('../schema/postSchema');
+const { BlogPost, PostCategory, Category, User } = require('../database/models');
+const { bodySchema, bodySchemaNoCategory } = require('../schema/postSchema');
 const config = require('../database/config/config');
 
 const sequelize = new Sequelize(config.development);
@@ -70,7 +65,8 @@ const getPostById = async (id) => {
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: Category, as: 'categories', through: { attributes: [] } },
-  ] });
+    ],
+  });
 
   if (!post) {
     const err = new Error('Post does not exist');
@@ -81,8 +77,41 @@ const getPostById = async (id) => {
   return post;
 };
 
+const updateValidation = async (user, id, body) => {
+  const { userId } = await getPostById(id);
+
+  if (userId !== user) {
+  const err = new Error('Unauthorized user');
+  err.name = 'UnauthorizedError';
+  throw err;
+}
+
+  const { error, value } = bodySchemaNoCategory.validate(body);
+  if (error) throw error;
+
+  return value;
+};
+
+const updatePost = async (userId, id, body) => {
+  const post = await updateValidation(userId, id, body);
+  const uptPost = await BlogPost.update(post, {
+    where: {
+      id,
+      userId,
+    },
+    fields: ['title', 'content'],
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  if (uptPost > 0) return getPostById(id);
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  updatePost,
 };

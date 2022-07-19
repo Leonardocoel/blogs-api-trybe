@@ -9,4 +9,6 @@ router.get('/', blogPostsController.getAllPosts);
 
 router.get('/:id', blogPostsController.getPostById);
 
+router.put('/:id', blogPostsController.updatePost);
+
 module.exports = router;

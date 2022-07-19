@@ -22,8 +22,18 @@ const getPostById = async (req, res) => {
   res.status(SUCESS.Ok).json(post);
 };
 
+const updatePost = async (req, res) => {
+  const { id: userId } = req.user;
+  const { id } = req.params;
+
+  const uptPost = await blogPostsService.updatePost(userId, id, req.body);
+
+  res.status(SUCESS.Ok).json(uptPost);
+};
+
 module.exports = {
   createBlogPost,
   getAllPosts,
   getPostById,
+  updatePost,
 };
