@@ -77,7 +77,7 @@ const getPostById = async (id) => {
   return post;
 };
 
-const updateValidation = async (user, id, body) => {
+const userValidation = async (user, id) => {
   const { userId } = await getPostById(id);
 
   if (userId !== user) {
@@ -85,16 +85,14 @@ const updateValidation = async (user, id, body) => {
   err.name = 'UnauthorizedError';
   throw err;
 }
-
-  const { error, value } = bodySchemaNoCategory.validate(body);
-  if (error) throw error;
-
-  return value;
 };
 
 const updatePost = async (userId, id, body) => {
-  const post = await updateValidation(userId, id, body);
-  const uptPost = await BlogPost.update(post, {
+   await userValidation(userId, id);
+  const { error, value } = bodySchemaNoCategory.validate(body);
+  if (error) throw error;
+
+  const uptPost = await BlogPost.update(value, {
     where: {
       id,
       userId,
@@ -109,9 +107,18 @@ const updatePost = async (userId, id, body) => {
   if (uptPost > 0) return getPostById(id);
 };
 
+const deletePost = async (userId, id) => {
+  await userValidation(userId, id);
+  
+ const isDeleted = await BlogPost.destroy({ where: { id, userId } });
+
+  if (isDeleted === 0) throw Error;
+};
+
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
+  deletePost,
 };

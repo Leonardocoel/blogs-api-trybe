@@ -4,24 +4,33 @@ const { SUCESS } = require('../helpers/httpStatusCodes');
 const createUser = async (req, res) => {
   const token = await userService.createUser(req.body);
 
-  return res.status(SUCESS.Created).json({ token });
+  res.status(SUCESS.Created).json({ token });
 };
 
 const getAllUsers = async (req, res) => {
   const AllUsers = await userService.getAllUsers();
 
-  return res.status(SUCESS.Ok).json(AllUsers);
+  res.status(SUCESS.Ok).json(AllUsers);
 };
 
-const getById = async (req, res) => {
+const getUserById = async (req, res) => {
   const { id } = req.params;
   const user = await userService.getById(id);
 
-  return res.status(SUCESS.Ok).json(user);
+  res.status(SUCESS.Ok).json(user);
+};
+
+const deleteUser = async (req, res) => {
+  const { id } = req.user;
+
+  await userService.deleteUser(id);
+
+  res.status(SUCESS.noContent).end();
 };
 
 module.exports = {
   createUser,
   getAllUsers,
-  getById,
+  getUserById,
+  deleteUser,
 };

@@ -36,7 +36,7 @@ const getAllUsers = async () => {
   return users;
 };
 
-const getById = async (id) => {
+const getUserById = async (id) => {
   const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
 
   if (!user) {
@@ -48,8 +48,15 @@ const getById = async (id) => {
   return user;
 };
 
+const deleteUser = async (id) => {
+  const isDeleted = await User.destroy({ where: { id } });
+
+  if (isDeleted === 0) throw Error;
+};
+
 module.exports = {
   createUser,
   getAllUsers,
-  getById,
+  getUserById,
+  deleteUser,
 };
