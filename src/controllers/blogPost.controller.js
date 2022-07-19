@@ -1,4 +1,4 @@
-const blogPostsService = require('../services/blogPosts.sevice');
+const blogPostsService = require('../services/blogPosts.service');
 const { SUCESS } = require('../helpers/httpStatusCodes');
 
 const createBlogPost = async (req, res) => {
@@ -15,7 +15,15 @@ const getAllPosts = async (req, res) => {
   res.status(SUCESS.Ok).json(posts);
 };
 
+const getPostById = async (req, res) => {
+  const { id } = req.params;
+  const post = await blogPostsService.getPostById(id);
+
+  res.status(SUCESS.Ok).json(post);
+};
+
 module.exports = {
   createBlogPost,
   getAllPosts,
+  getPostById,
 };
