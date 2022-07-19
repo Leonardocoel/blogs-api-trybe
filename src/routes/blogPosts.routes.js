@@ -7,6 +7,8 @@ router.post('/', blogPostsController.createBlogPost);
 
 router.get('/', blogPostsController.getAllPosts);
 
+router.get('/search', blogPostsController.getPostByQuery);
+
 router.get('/:id', blogPostsController.getPostById);
 
 router.put('/:id', blogPostsController.updatePost);

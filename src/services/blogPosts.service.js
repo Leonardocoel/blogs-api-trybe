@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, Category, User } = require('../database/models');
 const { bodySchema, bodySchemaNoCategory } = require('../schema/postSchema');
 const config = require('../database/config/config');
@@ -60,6 +61,22 @@ const getAllPosts = async () => {
   return posts;
 };
 
+const getPostByQuery = async (query) => {
+  const result = await BlogPost.findAll({
+    where: {
+      [Op.or]: [
+        { title: { [Op.like]: `%${query}%` } },
+        { content: { [Op.like]: `%${query}%` } },
+      ] },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+  ] });
+
+  console.log(result);
+  return result;
+};
+
 const getPostById = async (id) => {
   const post = await BlogPost.findByPk(id, {
     include: [
@@ -119,6 +136,7 @@ module.exports = {
   createPost,
   getAllPosts,
   getPostById,
+  getPostByQuery,
   updatePost,
   deletePost,
 };
