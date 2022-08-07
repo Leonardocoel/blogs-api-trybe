@@ -1,16 +1,20 @@
-# 🚧 README em construção 🚧
+# Blogs Api Project
 
-<!-- Olá, Tryber!
+BR
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+Projeto realizado para a trybe cujo o objetivo foi desenvolver uma API e um banco de dados para a produção de conteúdo para um blog, visando boas práticas
+de desenvolvimento.
 
-É essencial que você preencha esse documento por conta própria, ok?
+* Com exceceção dos arquivos desse [commit](https://github.com/Leonardocoel/blogs-api-trybe/commit/ea24cfe6a81513101aadef1ca097c67b0a9dc7f6) o projeto foi desenvolvido inteiramente por mim.
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+#
+ENG
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+Project made for trybe whose objective was to develop an API and a database for the production of content for a blog, aiming at good development practices.
 
--->
+* With the exception of the files of this [commit](https://github.com/Leonardocoel/blogs-api-trybe/commit/ea24cfe6a81513101aadef1ca097c67b0a9dc7f6) the project was developed entirely by me.
+
+#
+</br>
+
+JAVASCRIPT, NODEJS, MYSQL, SEQUELIZE, EXPRESSJS, JWT, BCRYPT, DBEAVER, POSTMAN.
